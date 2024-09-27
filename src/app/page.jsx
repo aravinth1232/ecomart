@@ -4,13 +4,13 @@
 
 export default function Home() {
  
-  const items = [
-    { name: 'Apple', price: 1.2 },
-    { name: 'Banana', price: 0.5 },
-    { name: 'Orange', price: 0.8 },
-    { name: 'Mango', price: 1.5 },
-    { name: 'Pineapple', price: 3.0 }
-  ];
+  // const items = [
+  //   { name: 'Apple', price: 1.2 },
+  //   { name: 'Banana', price: 0.5 },
+  //   { name: 'Orange', price: 0.8 },
+  //   { name: 'Mango', price: 1.5 },
+  //   { name: 'Pineapple', price: 3.0 }
+  // ];
 
 
   return (
@@ -23,7 +23,7 @@ export default function Home() {
     </div>  */}
 
 
-    
+    <h1>Welcome</h1>
 
    
     </>
