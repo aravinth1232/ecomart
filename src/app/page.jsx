@@ -1,5 +1,5 @@
 
-import Search from "./components/Search"
+// import Search from "../components/Search"
  
 
 export default function Home() {
@@ -15,12 +15,15 @@ export default function Home() {
 
   return (
     <>
-    <h1>Filter</h1>
-
+    {/* <h1>Filter</h1> */}
+{/* 
     <div className="min-h-screen bg-gray-50 py-10">
       <h1 className="text-center text-2xl font-bold mb-6">Search </h1>
       <Search items={items} />
-    </div>
+    </div>  */}
+
+
+    
 
    
     </>
