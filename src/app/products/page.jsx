@@ -1,5 +1,5 @@
 // // import Image from "next/image";
-// "use client"
+"use client"
 // import { collection, getDocs, query, orderBy  } from "firebase/firestore";
 // import { db } from "../../../firebase";
 // import { useEffect, useState } from "react";
@@ -78,15 +78,41 @@
 //   );
 // }
 
+import { useEffect, useState } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { firebaseApp } from '../../../firebase'; // Adjust import as needed
+import Link from "next/link"
 
-import React from 'react'
+const ProductsPage = () => {
+  const [products, setProducts] = useState([]);
+  const db = getFirestore(firebaseApp);
 
-const page = () => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsCollection = collection(db, 'shirts');
+      const productsSnapshot = await getDocs(productsCollection);
+      const productsList = productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProducts(productsList);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div>
-      fdfd
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-5 py-6">
+        {products.map(product => (
+          <div key={product.id} className="shadow-md p-4  ">
+            <Link href={`/products/${product.id}`}>
+            <img src={product.image} alt={product.name} className="w-full  lg:h-48  object-contain" />
+            </Link>
+            <h2 className="text-lg font-bold capitalize">{product.name}  </h2>
+            <p>Rs.{product.price}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default ProductsPage;
