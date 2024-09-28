@@ -7,12 +7,17 @@ import { auth, db } from '../../../../firebase';
 // import { useRouter } from 'next/router';
 import { collection, addDoc } from 'firebase/firestore';
 import Link from "next/link"
+import { FaEye } from "react-icons/fa";
 
 const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [cpasswordVisible, setCpasswordVisible] = useState(false);
+
   const [error, setError] = useState(null);
 //   const router = useRouter();
 
@@ -39,19 +44,23 @@ const SignUp = () => {
 
       window.location.href = '/dashboard'; // Redirect to dashboard after sign-up
     } catch (error) {
-      setError(error.message);
+      setError("Enter valid credentials");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded">
-        <h2 className="text-2xl font-bold text-center">Sign Up</h2>
-        {error && <p className="text-red-500">{error}</p>}
-        <form onSubmit={handleSignUp}>
+    <div className="flex items-start justify-center h-svh">
+      <div className="w-full max-w-md p-8 space-y-3 bg-white shadow-lg rounded">
+        <h2 className="text-2xl font-bold text-center ">Sign Up</h2>
+        {/* {error && <p className="text-red-500">{error}</p>} */}
+        {error ? ( <p className="text-red-500 pt-1 transition-all ease-out">{error}</p>)
+                    :(<p className="text-transparent pt-1">Enter valid credientials</p>) }
+        <form onSubmit={handleSignUp} >
+          <div className='flex flex-col gap-3'>
           <div>
-            <label>Name:</label>
+            {/* <label>Name:</label> */}
             <input
+              placeholder='Name'
               type="text"
               autoComplete='on'
               value={name}
@@ -60,35 +69,77 @@ const SignUp = () => {
             />
           </div>
           <div>
-            <label>Email:</label>
+            {/* <label>Email:</label> */}
             <input
+            placeholder='Email'
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 mt-1 border border-gray-300 rounded"
             />
           </div>
-          <div>
-            <label>Password:</label>
+          <div className='relative'>
+            {/* <label>Password:</label> */}
+            <div className='relative'>
             <input
-              type="password"
+            placeholder='Password'
+              type={passwordVisible ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 mt-1 border border-gray-300 rounded"
-            />
+            />  
+            <button
+          onClick={() => setPasswordVisible(!passwordVisible)}
+          type="button"
+          className=" absolute right-3 top-[52%] transform -translate-y-1/2"
+        >
+          {passwordVisible ? (
+            <FaEye className='text-tertiary' size={24} />
+          ) : (
+            <FaEye  size={24} />
+          )}
+        </button>
+
           </div>
+
+          </div>
+
+
           <div>
-            <label>Confirm Password:</label>
+            {/* <label>Confirm Password:</label> */}
+
+            <div className='relative'>
             <input
-              type="password"
+            placeholder='Confirm Password'
+              type={cpasswordVisible ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full p-2 mt-1 border border-gray-300 rounded"
             />
+            
+            <button
+          onClick={() => setCpasswordVisible(!cpasswordVisible)}
+          type="button"
+          className=" absolute right-3 top-[52%] transform -translate-y-1/2"
+        >
+          {cpasswordVisible ? (
+            <FaEye className='text-tertiary' size={24} />
+          ) : (
+            <FaEye  size={24} />
+          )}
+        </button>
+
+
+            </div>
           </div>
+          
+          </div>
+
+          
+
           <button
             type="submit"
-            className="w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-600"
+            className="w-full px-4 py-2 mt-4 text-white bg-primary rounded hover:bg-tertiary"
           >
             Sign Up
           </button>
@@ -97,7 +148,7 @@ const SignUp = () => {
           Already have an account?{' '}
           <Link
             href="/auth/loginuser"
-            className="text-blue-500 hover:underline"
+            className="text-tertiary hover:underline"
           >
             Login
           </Link>

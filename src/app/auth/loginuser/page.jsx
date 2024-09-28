@@ -6,8 +6,15 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../../firebase';
 import Link from "next/link"
+import { FaEye } from "react-icons/fa";
+
+
+
 
 const Login = () => {
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -54,35 +61,55 @@ const Login = () => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded">
+    <div className="flex items-start justify-center min-h-svh  md:min-h-screen">
+      <div className="w-full max-w-md p-8 space-y-3 bg-white shadow-lg rounded">
         <h2 className="text-2xl font-bold text-center">Login</h2>
-        
-        <form onSubmit={handleLogin}>
+        {error ? ( <p className="text-red-500 pt-1 transition-all ease-out">{error}</p>)
+                    :(<p className="text-transparent pt-1">Enter valid credientials</p>) }
+        <form onSubmit={handleLogin} >
+
+        <div className='flex flex-col gap-3' >
           <div>
-            <label>Email:</label>
+            {/* <label>Email:</label> */}
             <input
+            placeholder='Email'
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 mt-1 border border-gray-300 rounded"
             />
           </div>
-          <div>
-            <label>Password:</label>
+          <div className='border-black'>
+            {/* <label className=''>Password:</label> */}
+
+            <div className='relative'>
             <input
-              type="password"
+            placeholder='Password'
+              type={passwordVisible ? "text" : "password"}
+      
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 mt-1 border border-gray-300 rounded"
+              className="  w-full p-2 mt-1 border border-gray-300 rounded"
             />
+            
+          <button
+          onClick={() => setPasswordVisible(!passwordVisible)}
+          type="button"
+          className=" absolute right-3 top-[52%] transform -translate-y-1/2"
+        >
+          {passwordVisible ? (
+            <FaEye className='text-tertiary' size={24} />
+          ) : (
+            <FaEye  size={24} />
+          )}
+        </button>
+        </div>
           </div>
-          
-          {error ? ( <p className="text-red-500">{error}</p>)
-                    :(<p className="text-transparent">Enter valid credientia</p>) }
+          </div>
+         
           <button
             type="submit"
-            className="w-full px-4 py-2 mt-4 text-white bg-green-500 rounded hover:bg-green-600"
+            className="w-full px-4 py-2 mt-4 text-white bg-primary rounded hover:bg-tertiary"
           >
             Login
           </button>
@@ -91,7 +118,7 @@ const Login = () => {
           Dont have an account?{' '}
           <Link
             href="/auth/signup"
-            className="text-blue-500 hover:underline"
+            className="text-tertiary hover:underline"
           >
             Sign up
           </Link>

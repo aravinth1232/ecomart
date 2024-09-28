@@ -18,7 +18,7 @@ const Dashboard = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // Set the user's name if available
-        setUserName(user.displayName || 'not retrieved');
+        setUserName(user.displayName || 'User');
       } else {
         // If no user is logged in, redirect to login page
         window.location.href = '/login';
