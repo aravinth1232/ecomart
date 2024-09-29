@@ -16,6 +16,10 @@ const CartPage = () => {
         <div className="mt-4">
           {cartItems.map((item) => (
             <div key={item.id} className="border p-4 mb-4">
+              <img 
+              className="w-full h-64 object-contain mt-4"
+              loading='lazy'
+              src={item.image} alt={item.name} />
               <h2 className="text-lg font-bold">{item.name}</h2>
               <p>${item.price}</p>
               <button

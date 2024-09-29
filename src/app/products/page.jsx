@@ -104,7 +104,9 @@ const ProductsPage = () => {
         {products.map(product => (
           <div key={product.id} className="shadow-md p-4  ">
             <Link href={`/products/${product.id}`}>
-            <img src={product.image} alt={product.name} className="w-full  lg:h-48  object-contain" />
+            <img 
+            loading='lazy'
+            src={product.image} alt={product.name} className="w-full  lg:h-48  object-contain" />
             </Link>
             <h2 className="text-lg font-bold capitalize">{product.name}  </h2>
             <p>Rs.{product.price}</p>
