@@ -1,6 +1,7 @@
 
 // import Search from "../components/Search"
  
+import Link from "next/link"
 
 export default function Home() {
  
@@ -24,6 +25,10 @@ export default function Home() {
 
 
     <h1>Welcome</h1>
+
+    <Link
+    className="border p-1 m-1"
+    href="/products"> Explore our products </Link>
 
    
     </>
